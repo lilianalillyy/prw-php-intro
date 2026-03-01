@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 
-class TemplateHelpers {
-  public static function esc(mixed $value): mixed {
+class TemplateHelpers
+{
+  public static function esc(mixed $value): mixed
+  {
     if (!is_string($value)) {
       return $value;
     }
@@ -9,7 +11,8 @@ class TemplateHelpers {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
   }
 
-  public static function inc(TemplateRenderer $renderer, string $template, array|object|null $data = null): void {
+  public static function inc(TemplateRenderer $renderer, string $template, array|object|null $data = null): void
+  {
     try {
       echo $renderer->render($template, $data);
     } catch (TemplateNotFoundException $e) {
@@ -19,7 +22,8 @@ class TemplateHelpers {
   }
 }
 
-function createTemplateHelpers(TemplateRenderer $renderer): array {
+function createTemplateHelpers(TemplateRenderer $renderer): array
+{
   return [
     /**
      * Escape a string for safe output in HTML. This prevents XSS vulnerabilities by converting special characters to their HTML entities.

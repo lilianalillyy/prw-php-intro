@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1); ?>
+<?php declare(strict_types=1); ?>
 
 <h2 class="subtitle">Cvičení 7.1</h2>
 
@@ -34,9 +34,9 @@ echo implode(" ", $words);
 
 <?php
 $person = [
-    "jmeno" => "Mia",
-    "vek" => 20,
-    "mesto" => "Praha",
+  "jmeno" => "Mia",
+  "vek" => 20,
+  "mesto" => "Praha",
 ];
 echo "Jméno: " . $person["jmeno"];
 ?>
@@ -45,9 +45,9 @@ echo "Jméno: " . $person["jmeno"];
 
 <?php
 $person = [
-    "jmeno" => "Mia",
-    "vek" => 20,
-    "mesto" => "Praha",
+  "jmeno" => "Mia",
+  "vek" => 20,
+  "mesto" => "Praha",
 ];
 echo "Město: " . $person["mesto"];
 ?>
@@ -56,8 +56,8 @@ echo "Město: " . $person["mesto"];
 
 <?php
 $person = [
-    "jmeno" => "Mia",
-    "vek" => 20,
+  "jmeno" => "Mia",
+  "vek" => 20,
 ];
 $person["vek"] += 1;
 echo "Nový věk: " . $person["vek"];
@@ -67,8 +67,8 @@ echo "Nový věk: " . $person["vek"];
 
 <?php
 $class = [
-    "A" => ["Petr", "David"],
-    "B" => ["Lenka", "Ema"],
+  "A" => ["Petr", "David"],
+  "B" => ["Lenka", "Ema"],
 ];
 echo "Druhý student ze skupiny A: " . $class["A"][1];
 ?>
@@ -78,7 +78,7 @@ echo "Druhý student ze skupiny A: " . $class["A"][1];
 <?php
 $animals = ["pes", "kočka"];
 if (in_array("kočka", $animals)) {
-    echo "Kočka existuje v poli.";
+  echo "Kočka existuje v poli.";
 }
 ?>
 
@@ -102,7 +102,7 @@ echo implode(", ", $numbers);
 <?php
 $animals = ["pes", "kočka", "králík", "papoušek"];
 foreach ($animals as $animal) {
-    echo $animal . "<br>";
+  echo $animal . "<br>";
 }
 ?>
 
@@ -110,9 +110,9 @@ foreach ($animals as $animal) {
 
 <?php
 $person = [
-    "jmeno" => "Mia",
-    "vek" => 20,
-    "mesto" => "Praha",
+  "jmeno" => "Mia",
+  "vek" => 20,
+  "mesto" => "Praha",
 ];
 $keys = array_keys($person);
 echo implode(", ", $keys);
@@ -122,9 +122,9 @@ echo implode(", ", $keys);
 
 <?php
 $person = [
-    "jmeno" => "Mia",
-    "vek" => 20,
-    "mesto" => "Praha",
+  "jmeno" => "Mia",
+  "vek" => 20,
+  "mesto" => "Praha",
 ];
 $values = array_values($person);
 echo implode(", ", $values);
@@ -134,11 +134,11 @@ echo implode(", ", $values);
 
 <?php
 $contacts = [
-    "Mia" => "123 456 789",
-    "Eva" => "987 654 321",
-    "Petr" => "555 111 222",
+  "Mia" => "123 456 789",
+  "Eva" => "987 654 321",
+  "Petr" => "555 111 222",
 ];
 foreach ($contacts as $name => $phone) {
-    echo "$name: $phone<br>";
+  echo "$name: $phone<br>";
 }
 ?>

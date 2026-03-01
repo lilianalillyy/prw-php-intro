@@ -3,21 +3,21 @@
 // I've been writing PHP since 2016. Normally I would make a minimal setup with a framework that has a templating engine,
 // but that would be overkill here and we're not using Composer yet anyways. So here you go, the result of my procrastination
 // ... a simple template renderer.
-class TemplateRenderer {
-  
+class TemplateRenderer
+{
   public function __construct(private readonly string $viewsDir)
   {
   }
 
   /**
    * Render a template with the given data and an optional layout, and output it directly.
-   * 
+   *
    * @throws TemplateNotFoundException If the specified template or layout file does not exist.
    * @throws TemplateException If an error occurs during rendering.
    */
   public function view(
-    string $template, 
-    array|object|null $data = null, 
+    string $template,
+    array|object|null $data = null,
     ?string $layout = null,
   ): void {
     echo $this->render($template, $data, $layout);
@@ -25,7 +25,7 @@ class TemplateRenderer {
 
   /**
    * Render a template with the given data and an optional layout into a string.
-   * 
+   *
    * @throws TemplateNotFoundException If the specified template or layout file does not exist.
    * @throws TemplateException If an error occurs during rendering.
    */
@@ -53,7 +53,7 @@ class TemplateRenderer {
 
   /**
    * Render raw HTML content within a layout. Useful for rendering inline content.
-   * 
+   *
    * @throws TemplateNotFoundException If the layout file does not exist.
    * @throws TemplateException If an error occurs during rendering.
    */
@@ -73,11 +73,13 @@ class TemplateRenderer {
     return $this->renderTemplateContent($layoutPath, $layoutData);
   }
 
-  public function isValidTemplatePath(string $templatePath): bool {
+  public function isValidTemplatePath(string $templatePath): bool
+  {
     return is_file($templatePath);
   }
 
-  public function getValidTemplatePath(string $template, bool $throw = false): ?string {
+  public function getValidTemplatePath(string $template, bool $throw = false): ?string
+  {
     $templatePath = $this->createTemplatePath($template);
 
     if (!$this->isValidTemplatePath($templatePath)) {
@@ -94,17 +96,19 @@ class TemplateRenderer {
   /**
    * Get the full file path for a given template name.
    */
-  protected function createTemplatePath(string $template): string {
+  protected function createTemplatePath(string $template): string
+  {
     $template = str_replace('/', DIRECTORY_SEPARATOR, $template);
     return $this->viewsDir . DIRECTORY_SEPARATOR . $template . '.php';
   }
 
   /**
-   * Normalize the data to an associative array. 
-   * - If the data is an object, its public properties will be extracted as key-value pairs in the resulting array. 
+   * Normalize the data to an associative array.
+   * - If the data is an object, its public properties will be extracted as key-value pairs in the resulting array.
    * - If the data is null, an empty array will be returned.
    */
-  public function normalizeData(array|object|null $data): array {
+  public function normalizeData(array|object|null $data): array
+  {
     if ($data === null) {
       return [];
     }
@@ -119,14 +123,15 @@ class TemplateRenderer {
   /**
    * Render a template file with the given data.
    */
-  public function renderTemplateContent(string $templatePath, array $data): string {
+  public function renderTemplateContent(string $templatePath, array $data): string
+  {
     ob_start();
 
     // This isolation prevents template variables from leaking outside the template.
     (function () use ($templatePath, $data) {
       extract($data, EXTR_SKIP);
       extract(createTemplateHelpers($this), EXTR_SKIP);
-      
+
       require $templatePath;
     })();
 

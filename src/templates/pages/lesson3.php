@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1); ?>
+<?php declare(strict_types=1); ?>
 
 <h2 class="subtitle">Cvičení 3.1</h2>
 
@@ -48,7 +48,7 @@ var_dump(7 != 5);
 <?php
 $vek = 20;
 if ($vek >= 15 && $vek <= 30) {
-    echo "Věk je mezi 15 a 30.";
+  echo "Věk je mezi 15 a 30.";
 }
 ?>
 
@@ -118,8 +118,8 @@ echo $pozdrav;
 <?php
 $vek = 20;
 if ($vek >= 18) {
-    echo "Člověk je dospělý.";
+  echo "Člověk je dospělý.";
 } else {
-    echo "Člověk je nezletilý.";
+  echo "Člověk je nezletilý.";
 }
 ?>

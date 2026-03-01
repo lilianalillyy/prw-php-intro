@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1); ?>
+<?php declare(strict_types=1); ?>
 
 <h2 class="subtitle">Cvičení 2.1</h2>
 

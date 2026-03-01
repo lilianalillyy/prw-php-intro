@@ -1,10 +1,10 @@
-<?php declare(strict_types = 1); ?>
+<?php declare(strict_types=1); ?>
 
 <h2 class="subtitle">Cvičení 6.1</h2>
 
 <?php
 for ($i = 1; $i <= 10; $i++) {
-    echo $i . " ";
+  echo $i . " ";
 }
 ?>
 
@@ -12,9 +12,9 @@ for ($i = 1; $i <= 10; $i++) {
 
 <?php
 for ($i = 1; $i <= 20; $i++) {
-    if ($i % 2 === 0) {
-        echo $i . " ";
-    }
+  if ($i % 2 === 0) {
+    echo $i . " ";
+  }
 }
 ?>
 
@@ -22,7 +22,7 @@ for ($i = 1; $i <= 20; $i++) {
 
 <?php
 for ($i = 10; $i >= 1; $i--) {
-    echo $i . " ";
+  echo $i . " ";
 }
 ?>
 
@@ -31,8 +31,8 @@ for ($i = 10; $i >= 1; $i--) {
 <?php
 $i = 1;
 while ($i <= 5) {
-    echo $i . " ";
-    $i++;
+  echo $i . " ";
+  $i++;
 }
 ?>
 
@@ -41,8 +41,8 @@ while ($i <= 5) {
 <?php
 $i = 1;
 do {
-    echo "Tento cyklus se provede alespoň jednou. Iterace: $i";
-    $i++;
+  echo "Tento cyklus se provede alespoň jednou. Iterace: $i";
+  $i++;
 } while ($i <= 1);
 ?>
 
@@ -51,7 +51,7 @@ do {
 <?php
 $animals = ["pes", "kočka", "králík"];
 foreach ($animals as $animal) {
-    echo $animal . " ";
+  echo $animal . " ";
 }
 ?>
 
@@ -61,7 +61,7 @@ foreach ($animals as $animal) {
 $sentence = "Ahoj jak se máš";
 $words = explode(" ", $sentence);
 foreach ($words as $word) {
-    echo $word . "<br>";
+  echo $word . "<br>";
 }
 ?>
 
@@ -69,7 +69,7 @@ foreach ($words as $word) {
 
 <?php
 for ($i = 1; $i <= 10; $i++) {
-    echo (7 * $i) . " ";
+  echo (7 * $i) . " ";
 }
 ?>
 
@@ -78,7 +78,7 @@ for ($i = 1; $i <= 10; $i++) {
 <?php
 $sum = 0;
 for ($i = 1; $i <= 100; $i++) {
-    $sum += $i;
+  $sum += $i;
 }
 echo "Součet čísel 1–100: $sum";
 ?>
@@ -87,10 +87,10 @@ echo "Součet čísel 1–100: $sum";
 
 <?php
 for ($i = 1; $i <= 10; $i++) {
-    if ($i === 5) {
-        break;
-    }
-    echo $i . " ";
+  if ($i === 5) {
+    break;
+  }
+  echo $i . " ";
 }
 ?>
 
@@ -98,10 +98,10 @@ for ($i = 1; $i <= 10; $i++) {
 
 <?php
 for ($i = 1; $i <= 10; $i++) {
-    if ($i === 7) {
-        continue;
-    }
-    echo $i . " ";
+  if ($i === 7) {
+    continue;
+  }
+  echo $i . " ";
 }
 ?>
 
@@ -110,7 +110,7 @@ for ($i = 1; $i <= 10; $i++) {
 <?php
 $prices = [99, 149, 349];
 foreach ($prices as $price) {
-    echo $price . " Kč<br>";
+  echo $price . " Kč<br>";
 }
 ?>
 
@@ -119,7 +119,7 @@ foreach ($prices as $price) {
 <?php
 $names = ["Petr", "Eva", "Kristýna"];
 foreach ($names as $name) {
-    echo "Ahoj, $name!<br>";
+  echo "Ahoj, $name!<br>";
 }
 ?>
 
@@ -129,9 +129,9 @@ foreach ($names as $name) {
 $numbers = [3, 5, 7, 9, 12];
 $searched = 7;
 foreach ($numbers as $number) {
-    if ($number === $searched) {
-        echo "Nalezeno: $searched";
-        break;
-    }
+  if ($number === $searched) {
+    echo "Nalezeno: $searched";
+    break;
+  }
 }
 ?>
