@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 class TemplateHelpers {
-    public static function esc(string $value) {
+    public static function esc(mixed $value) {
       if (!is_string($value)) {
         return $value;
       }
