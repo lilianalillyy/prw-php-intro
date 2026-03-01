@@ -2,4 +2,5 @@
 
 require_once __DIR__ . '/TemplateException.php';
 require_once __DIR__ . '/TemplateNotFoundException.php';
+require_once __DIR__ . '/template_helpers.php';
 require_once __DIR__ . '/TemplateRenderer.php';

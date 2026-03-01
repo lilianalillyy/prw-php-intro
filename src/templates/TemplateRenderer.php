@@ -100,6 +100,7 @@ class TemplateRenderer {
     // This isolation prevents template variables from leaking outside the template.
     (function () use ($templatePath, $data) {
       extract($data, EXTR_SKIP);
+      extract(createTemplateHelpers($this), EXTR_SKIP);
       
       require $templatePath;
     })();
