@@ -37,7 +37,6 @@ if (isset($pageCtx['templatePath'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= $title ? $esc($title) . " | " : "" ?> <?= $esc($globalTitle ?? '') ?></title>
   <link rel="stylesheet" href="/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="page-container">
