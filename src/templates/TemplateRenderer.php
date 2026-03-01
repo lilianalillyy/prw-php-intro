@@ -46,6 +46,8 @@ class TemplateRenderer {
 
     $layoutData = array_merge($data, [
       'pageCtx' => [
+        'templatePath' => $template,
+        'layoutPath' => $layout,
         'data' => $data,
         'content' => $renderedTemplate
       ],
