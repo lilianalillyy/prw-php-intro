@@ -1,0 +1,74 @@
+<?php declare(strict_types=1);
+
+$title = $esc($title);
+
+if (isset($reference_file)) {
+  $reference_file_path = $esc($reference_file);
+  $reference_file_ext = $esc(pathinfo($reference_file_path, PATHINFO_EXTENSION));
+  $reference_file_name = $title . "." . $reference_file_ext;
+
+  $reference_file = [
+    'href' => $reference_file_path,
+    'download_name' => $reference_file_name,
+    'extension' => $reference_file_ext,
+  ];
+}
+?>
+<!doctype html>
+<html lang="cs">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?= $title ? $esc($title) . " | " : "" ?> <?= $esc($globalTitle ?? '') ?></title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="page-container">
+  <main class="content container">
+    <a href="<?= $router->link('home') ?>" class="icon-link">
+      <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"></path>
+      </svg>
+      Zpět na seznam lekcí
+    </a>
+    <h1 class="title"><?= $esc($title ?? '') ?></h1>
+
+    <?php if (isset($reference_file)): ?>
+      <div>
+        <a
+          href="<?= $reference_file['href'] ?>"
+          target="_blank"
+          download="<?= $esc($reference_file['download_name']) ?>"
+          class="icon-link">
+          <svg
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            class="w-6 h-6">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
+          </svg>
+          Studijní materiál (.<?= $reference_file['extension'] ?>)
+        </a>
+      </div>
+
+      <hr />
+
+      <?= $pageCtx['content'] ?>
+    <?php endif; ?>
+  </main>
+
+  <footer>
+    <small>&copy; <?= date('Y') ?> Mia Runštuková</small>
+  </footer>
+</body>
+
+</html>
