@@ -1,0 +1,6 @@
+# This only works for Apache servers with mod_rewrite enabled.
+# Note that Apache freaking sucks and should not be used in production these days.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ /?page=$1 [L,QSA]
