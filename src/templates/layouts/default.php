@@ -17,7 +17,7 @@ if (isset($isError) && $isError === true) {
   <main class="content container">
     <h1 class="title"><?= $esc($title ?? '') ?></h1>
     
-    <hr/>
+    <hr />
 
     <?= $pageCtx['content'] ?>
   </main>

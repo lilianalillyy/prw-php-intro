@@ -43,7 +43,7 @@ if (isset($pageCtx['templatePath'])) {
       <svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"></path>
       </svg>
-      <i>Zpět na seznam lekcí</i>
+      <span class="italic">Zpět na seznam lekcí</span>
     </a>
     <h1 class="title"><?= $esc($title ?? '') ?></h1>
 
@@ -80,9 +80,9 @@ if (isset($pageCtx['templatePath'])) {
 
         <h2 class="subtitle">Zdrojový kód lekce</h2>
 
-        <div id="lesson-code">
-          <div class="icon-link">
-            <div class="spinner"></div>
+        <div id="lesson-code" aria-live="polite">
+          <div class="icon-link" aria-label="Načítám zdrojový kód">
+            <div class="spinner" aria-hidden="true"></div>
             <p>Načítám...</p>
           </div>
         </div>

@@ -135,3 +135,7 @@ footer {
   text-align: center;
   padding: calc(var(--spacing) * 4);
 }
+
+.italic {
+  font-style: italic;
+}
