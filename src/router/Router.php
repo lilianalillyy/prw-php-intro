@@ -1,40 +1,51 @@
 <?php declare(strict_types=1);
 
 class Router {
+    private readonly array $routes;
+    private readonly array $routeHandlers;
+
     public function __construct(
-        private readonly TemplateRenderer $templateRenderer,
-        private readonly string $pageParam = 'page',
-        private readonly string $defaultPage = 'home',
-        private readonly array $availablePages = [],
-        private readonly array $globalData = [],
+        array $routes = [],
+        array $routeHandlers = [],
+        private readonly string $routeParam = 'page',
+        private readonly string $defaultRouteName = 'home',
     )
     {
+        $this->routes = self::createIndexedArray($routes, 'name');
+        $this->routeHandlers = self::createIndexedArray($routeHandlers, 'name');
     }
 
     function handleRequest(): void {
-        $page = $this->getCurrentPageFromQuery();
+        $page = $this->getCurrentRouteName();
 
-        if (!$this->isValidPage($page)) {
+        // If the page parameter is not set, use the default route.
+        if (!$page) {
+            $page = $this->defaultRouteName;
+        }
+
+        $route = $this->getRoute($page);
+
+        if (!$route) {
             http_response_code(404);
-            echo "Page not found.";
+            // TODO: Better handling of 404
+            echo "Page '{$page}' not found.";
             return;
         }
 
-        $pageConfig = $this->getPageConfig($page);
-        $this->templateRenderer->view(
-            template: $pageConfig['template'],
-            data: $this->prepareData($pageConfig['data'] ?? []),
-            layout: $pageConfig['layout'] ?? null
-        );
+        $handler = $this->getRouteHandler($route->handler);
+
+        if (!$handler) {
+            http_response_code(500);
+            echo "Cannot handle route '{$route->name}'.";
+            return;
+        }
+
+        $handler->handle($route, $this);
     }
 
-    function prepareData(?array $data): array {
-        return array_merge($this->globalData, $data ?? [], ['router' => $this]);
-    }
-
-    function link(string $page, array $queryParams = []): string {
-        if (!$this->isValidPage($page)) {
-            throw new InvalidArgumentException("Invalid page '{$page}' provided to Router.");
+    function link(string $route, array $queryParams = []): string {
+        if (!$this->getRoute($route)) {
+            throw new InvalidArgumentException("Invalid route '{$route}' provided to Router.");
         }
 
         $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
@@ -45,8 +56,8 @@ class Router {
             parse_str($urlParts['query'], $currentQueryParams);
         }
 
-        // Do not include the page parameter in the URL if it's the default page.
-        $pageParams = $page === $this->defaultPage ? [] : [$this->pageParam => $page];
+        // Do not include the routing parameter in the URL if it's the default route.
+        $pageParams = $route === $this->defaultRouteName ? [] : [$this->routeParam => $route];
         
         $query = http_build_query(array_merge($currentQueryParams, $queryParams, $pageParams));
         $url = $urlParts['path'] ?? '/';
@@ -62,19 +73,31 @@ class Router {
         return $url;
     }
 
-    function isValidPage(string $page): bool {
-        return isset($this->availablePages[$page]);
+    public function getRoutes(): array {
+        return $this->routes;
     }
 
-    function getPageConfig(string $page): array {
-       return AVAILABLE_PAGES[$page];
+    public function getRoute(string $route): ?Route {
+        return $this->routes[$route] ?? null;
     }
 
-    function getCurrentPageFromQuery(): string {
-        if (!isset($_GET[$this->pageParam]) || !$this->isValidPage($_GET[$this->pageParam])) {
-            return $this->defaultPage;
+    public function getRouteHandler(string $handler): ?RouteHandler {
+        return $this->routeHandlers[$handler] ?? null;
+    }
+
+    private function getCurrentRouteName(): ?string {
+        if (!isset($_GET[$this->routeParam])) {
+            return null;
         }
 
-        return $_GET[$this->pageParam];
+        return $_GET[$this->routeParam];
+    }
+
+    private static function createIndexedArray(array $array, string $key): array {
+        $result = [];
+        foreach ($array as $item) {
+            $result[$item->$key] = $item;
+        }
+        return $result;
     }
 }

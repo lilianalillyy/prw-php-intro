@@ -50,7 +50,7 @@ class TemplateRenderer {
         'content' => $renderedTemplate
       ],
     ]);
-    
+
     return $this->renderTemplateContent($layout, $layoutData);
   }
 
@@ -82,7 +82,7 @@ class TemplateRenderer {
    * - If the data is an object, its public properties will be extracted as key-value pairs in the resulting array. 
    * - If the data is null, an empty array will be returned.
    */
-  protected function normalizeData(array|object|null $data): array {
+  public function normalizeData(array|object|null $data): array {
     if ($data === null) {
       return [];
     }
