@@ -7,7 +7,7 @@ $lessons = array_filter($router->getRoutes(), function ($route) {
 $lessons = array_map(function ($routeName, $route) {
   return [
     'route' => $routeName,
-    'title' => $route->config['data']['title'] ?? $route,
+    'title' => $route->config['data']['title'] ?? $route->name,
   ];
 }, array_keys($lessons), $lessons);
 
@@ -16,7 +16,7 @@ $lessons = array_map(function ($routeName, $route) {
 <ul class="lessons-list">
   <?php foreach ($lessons as $lesson): ?>
     <li>
-      <a href="<?= $router->link($lesson['route']) ?>" class="text-blue-500 hover:underline">
+      <a href="<?= $router->link($lesson['route']) ?>">
         <?= $esc($lesson['title']) ?>
       </a>
     </li>

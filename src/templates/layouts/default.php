@@ -10,7 +10,7 @@ if (isset($isError) && $isError === true) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= $title ? $esc($title) . " | " : "" ?> <?= $esc($globalTitle ?? '') ?></title>
+  <title><?= $title ? $esc($title) . " | " : "" ?><?= $esc($globalTitle ?? '') ?></title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body class="page-container">

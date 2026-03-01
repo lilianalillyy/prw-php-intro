@@ -4,7 +4,8 @@ require_once __DIR__ . '/../src/templates/index.php';
 require_once __DIR__ . '/../src/router/index.php';
 
 const GLOBAL_DATA = [
-  'globalTitle' => 'Základy PHP'
+  'globalTitle' => 'Základy PHP',
+  'debug' => true,
 ];
 
 const DEFAULT_LAYOUT = "default";

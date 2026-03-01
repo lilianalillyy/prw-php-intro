@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
 class TemplateHelpers {
-    public static function esc(mixed $value) {
-      if (!is_string($value)) {
-        return $value;
-      }
-
-      return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+  public static function esc(mixed $value): mixed {
+    if (!is_string($value)) {
+      return $value;
     }
 
-    public static function inc(TemplateRenderer $renderer, string $template, array|object|null $data = null): void {
-      try {
-        echo $renderer->render($template, $data);
-      } catch (TemplateNotFoundException $e) {
-        trigger_error("Template not found. Expected a template at " . $e->path . ".", E_USER_WARNING);
-        echo "<!-- Error including template '{$template}' -->";
-      }
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+  }
+
+  public static function inc(TemplateRenderer $renderer, string $template, array|object|null $data = null): void {
+    try {
+      echo $renderer->render($template, $data);
+    } catch (TemplateNotFoundException $e) {
+      trigger_error("Template not found. Expected a template at " . $e->path . ".", E_USER_WARNING);
+      echo "<!-- Error including template '{$template}' -->";
     }
+  }
 }
 
 function createTemplateHelpers(TemplateRenderer $renderer): array {

@@ -85,7 +85,6 @@ class TemplateRenderer {
         throw new TemplateNotFoundException($template, $templatePath);
       }
 
-      trigger_error("Template not found. Expected a template at " . $templatePath . ".", E_USER_WARNING);
       return null;
     }
 

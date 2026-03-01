@@ -2,7 +2,7 @@
 
 <p>Při zpracování požadavku došlo k neočekávané chybě.</p>
 
-<?php if (isset($message)): ?>
+<?php if (!empty($debug) && isset($message)): ?>
   <details>
     <summary><?= $esc($message) ?></summary>
     <?php if (isset($exception)): ?>
