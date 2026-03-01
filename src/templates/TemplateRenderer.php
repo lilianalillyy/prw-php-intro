@@ -44,22 +44,43 @@ class TemplateRenderer {
       return $renderedTemplate;
     }
 
-    $layoutData = array_merge($data, [
-      'pageCtx' => [
-        'templatePath' => $template,
-        'layoutPath' => $layout,
-        'data' => $data,
-        'content' => $renderedTemplate
-      ],
-    ]);
+    $pageCtx = [
+      'templatePath' => $template,
+    ];
 
-    return $this->renderTemplateContent($layout, $layoutData);
+    return $this->renderIntoLayout($renderedTemplate, $layout, $data, $pageCtx);
   }
 
-  protected function getValidTemplatePath(string $template, bool $throw = false): ?string {
+  /**
+   * Render raw HTML content within a layout. Useful for rendering inline content.
+   * 
+   * @throws TemplateNotFoundException If the layout file does not exist.
+   * @throws TemplateException If an error occurs during rendering.
+   */
+  public function renderIntoLayout(
+    string $content,
+    string $layoutPath,
+    array $data = [],
+    array $pageCtx = [],
+  ): string {
+    $layoutData = array_merge($data, [
+      'pageCtx' => array_merge([
+        'content' => $content,
+        'layoutPath' => $layoutPath,
+      ], $pageCtx),
+    ]);
+
+    return $this->renderTemplateContent($layoutPath, $layoutData);
+  }
+
+  public function isValidTemplatePath(string $templatePath): bool {
+    return is_file($templatePath);
+  }
+
+  public function getValidTemplatePath(string $template, bool $throw = false): ?string {
     $templatePath = $this->createTemplatePath($template);
 
-    if (!is_file($templatePath)) {
+    if (!$this->isValidTemplatePath($templatePath)) {
       if ($throw) {
         throw new TemplateNotFoundException($template, $templatePath);
       }
@@ -99,7 +120,7 @@ class TemplateRenderer {
   /**
    * Render a template file with the given data.
    */
-  protected function renderTemplateContent(string $templatePath, array $data): string {
+  public function renderTemplateContent(string $templatePath, array $data): string {
     ob_start();
 
     // This isolation prevents template variables from leaking outside the template.

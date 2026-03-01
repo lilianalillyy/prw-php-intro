@@ -9,6 +9,7 @@ class Router {
         array $routeHandlers = [],
         private readonly string $routeParam = 'page',
         private readonly string $defaultRouteName = 'home',
+        private readonly ?string $errorHandler = null,
     )
     {
         $this->routes = self::createIndexedArray($routes, 'name');
@@ -26,21 +27,22 @@ class Router {
         $route = $this->getRoute($page);
 
         if (!$route) {
-            http_response_code(404);
-            // TODO: Better handling of 404
-            echo "Page '{$page}' not found.";
+            $this->error(404, "Page not found.");
             return;
         }
 
         $handler = $this->getRouteHandler($route->handler);
 
         if (!$handler) {
-            http_response_code(500);
-            echo "Cannot handle route '{$route->name}'.";
+            $this->error(500, "Unexpected handler '{$route->handler}' for route '{$route->name}'.");
             return;
         }
 
-        $handler->handle($route, $this);
+        try {
+            $handler->handle($route, $this);
+        } catch (Throwable $e) {
+            $this->error(500, "An unexpected error occurred while handling the request.", $e);
+        }
     }
 
     function link(string $route, array $queryParams = []): string {
@@ -87,6 +89,14 @@ class Router {
         return $this->routeHandlers[$handler] ?? null;
     }
 
+    /**
+     * Trigger an error response. Can be called by route handlers to delegate error rendering
+     * back to the router's configured error handler.
+     */
+    public function error(int $statusCode, string $message, ?Throwable $exception = null): void {
+        $this->handleError($statusCode, $message, $exception);
+    }
+
     private function getCurrentRouteName(): ?string {
         if (!isset($_GET[$this->routeParam])) {
             return null;
@@ -101,5 +111,19 @@ class Router {
             $result[$item->$key] = $item;
         }
         return $result;
+    }
+
+    private function handleError(int $statusCode, string $message, ?Throwable $exception = null): void {
+        http_response_code($statusCode);
+
+        // Try to delegate error rendering to a route handler.
+        $handlerName = $this->errorHandler ?? array_key_first($this->routeHandlers);
+        $handler = $handlerName ? $this->getRouteHandler($handlerName) : null;
+
+        if ($handler && $handler->handleError($statusCode, $message, $exception, $this)) {
+            return;
+        }
+
+        echo TemplateHelpers::esc($message);
     }
 }
