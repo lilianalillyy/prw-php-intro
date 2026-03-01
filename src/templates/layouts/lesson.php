@@ -2,15 +2,15 @@
 
 $title = $esc($title);
 
-if (isset($reference_file)) {
-  $reference_file_path = $esc($reference_file);
-  $reference_file_ext = $esc(pathinfo($reference_file_path, PATHINFO_EXTENSION));
-  $reference_file_name = $title . "." . $reference_file_ext;
+if (isset($referenceFile)) {
+  $referenceFilePath = $esc($referenceFile);
+  $referenceFileExt = $esc(pathinfo($referenceFilePath, PATHINFO_EXTENSION));
+  $referenceFileName = $title . "." . $referenceFileExt;
 
-  $reference_file = [
-    'href' => $reference_file_path,
-    'download_name' => $reference_file_name,
-    'extension' => $reference_file_ext,
+  $referenceFile = [
+    'href' => $referenceFilePath,
+    'downloadName' => $referenceFileName,
+    'extension' => $referenceFileExt,
   ];
 }
 ?>
@@ -35,12 +35,12 @@ if (isset($reference_file)) {
     </a>
     <h1 class="title"><?= $esc($title ?? '') ?></h1>
 
-    <?php if (isset($reference_file)): ?>
+    <?php if (isset($referenceFile)): ?>
       <div>
         <a
-          href="<?= $reference_file['href'] ?>"
+          href="<?= $referenceFile['href'] ?>"
           target="_blank"
-          download="<?= $esc($reference_file['download_name']) ?>"
+          download="<?= $esc($referenceFile['downloadName']) ?>"
           class="icon-link">
           <svg
             data-slot="icon"
@@ -56,7 +56,7 @@ if (isset($reference_file)) {
               stroke-linejoin="round"
               d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"></path>
           </svg>
-          Studijní materiál (.<?= $reference_file['extension'] ?>)
+          Studijní materiál (.<?= $referenceFile['extension'] ?>)
         </a>
       </div>
 

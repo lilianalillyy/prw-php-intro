@@ -24,7 +24,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 1 - Úvod do PHP',
-        'reference_file' => '/lessons/lesson1_intro.pdf',
+        'referenceFile' => '/lessons/lesson1_intro.pdf',
       ]
     ),
     new TemplateRoute(
@@ -32,7 +32,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 2 - Proměnné a datové typy',
-        'reference_file' => '/lessons/lesson2_variables.pdf',
+        'referenceFile' => '/lessons/lesson2_variables.pdf',
       ]
     ),
     new TemplateRoute(
@@ -40,7 +40,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 3 - Operátory',
-        'reference_file' => '/lessons/lesson3_operators.pdf',
+        'referenceFile' => '/lessons/lesson3_operators.pdf',
       ]
     ),
     new TemplateRoute(
@@ -48,7 +48,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 4 - Funkce',
-        'reference_file' => '/lessons/lesson4_functions.pdf',
+        'referenceFile' => '/lessons/lesson4_functions.pdf',
       ]
     ),
     new TemplateRoute(
@@ -56,7 +56,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 5 - Podmínky',
-        'reference_file' => '/lessons/lesson5_conditions.pdf',
+        'referenceFile' => '/lessons/lesson5_conditions.pdf',
       ]
     ),
     new TemplateRoute(
@@ -64,7 +64,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 6 - Cykly',
-        'reference_file' => '/lessons/lesson6_loops.pdf',
+        'referenceFile' => '/lessons/lesson6_loops.pdf',
       ]
     ),
     new TemplateRoute(
@@ -72,7 +72,7 @@ $router = new Router(
       layout: LESSON_LAYOUT,
       data: [
         'title' => 'Lekce 7 - Pole',
-        'reference_file' => '/lessons/lesson7_arrays.pdf',
+        'referenceFile' => '/lessons/lesson7_arrays.pdf',
       ]
     ),
   ],
