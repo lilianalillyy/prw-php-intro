@@ -1,4 +1,10 @@
-<?php declare(strict_types=1); ?>
+<?php declare(strict_types=1); 
+
+if ($isError) {
+  $title = (string) $statusCode;
+}
+
+?>
 <!doctype html>
 <html lang="cs">
 <head>
