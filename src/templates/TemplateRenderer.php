@@ -36,18 +36,21 @@ class TemplateRenderer {
   ): string {
     $template = $this->getValidTemplatePath($template, true);
     $layout = $layout ? $this->getValidTemplatePath($layout) : null;
+    $data = $this->normalizeData($data);
 
-    $renderedTemplate = $this->renderTemplateContent($template, $this->normalizeData($data));
+    $renderedTemplate = $this->renderTemplateContent($template, $data);
 
     if ($layout === null) {
       return $renderedTemplate;
     }
 
-    $layoutData = [
-      'content' => $renderedTemplate, 
-      'pageData' => $data
-    ];
-
+    $layoutData = array_merge($data, [
+      'pageCtx' => [
+        'data' => $data,
+        'content' => $renderedTemplate
+      ],
+    ]);
+    
     return $this->renderTemplateContent($layout, $layoutData);
   }
 
