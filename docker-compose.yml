@@ -6,3 +6,4 @@ services:
     volumes:
       - ./public:/var/www/html/public
       - ./src:/var/www/html/src
+      - ./templates:/var/www/html/templates

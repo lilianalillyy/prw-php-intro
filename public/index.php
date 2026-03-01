@@ -11,7 +11,7 @@ const GLOBAL_DATA = [
 const DEFAULT_LAYOUT = "default";
 const LESSON_LAYOUT = "lesson";
 
-$templateRenderer = new TemplateRenderer(__DIR__ . '/../src/templates');
+$templateRenderer = new TemplateRenderer(__DIR__ . '/../templates');
 $router = new Router(
   routes: [
     new TemplateRoute(
