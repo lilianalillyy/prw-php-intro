@@ -5,8 +5,12 @@ function createTemplateHelpers(TemplateRenderer $renderer): array {
     /**
      * Escape a string for safe output in HTML. This prevents XSS vulnerabilities by converting special characters to their HTML entities.
      */
-    "esc" => function (string $s): string {
-      return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    "esc" => function ($value) {
+      if (!is_string($value)) {
+        return $value;
+      }
+
+      return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     },
     /**
      * Include another template within the current template.
