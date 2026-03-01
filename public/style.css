@@ -84,6 +84,11 @@ a:hover {
     font-weight: var(--font-weight-bold);
 }
 
+.subtitle {
+    font-size: var(--font-size-subtitle);
+    font-weight: var(--font-weight-bold);
+}
+
 .lessons-list {
     font-size: var(--font-size-subtitle);
     margin-left: calc(var(--spacing) * 8);
