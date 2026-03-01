@@ -13,6 +13,21 @@ if (isset($referenceFile)) {
     'extension' => $referenceFileExt,
   ];
 }
+
+$lessonCode = null;
+if (isset($pageCtx['templatePath'])) {
+  $templatePath = $pageCtx['templatePath'];
+  try {
+    $lessonCode = file_get_contents($templatePath);
+
+    if (!$lessonCode || strlen(trim($lessonCode)) <= 0) {
+      $lessonCode = null; // No content
+    }
+  } catch (Throwable $e) {
+    // Throw warning
+    trigger_error("Could not read lesson template file at '$templatePath': " . $e->getMessage(), E_USER_WARNING);
+  }
+}
 ?>
 <!doctype html>
 <html lang="cs">
@@ -63,12 +78,41 @@ if (isset($referenceFile)) {
       <hr />
 
       <?= $pageCtx['content'] ?>
+
+      <?php if (isset($lessonCode)): ?>
+        <hr />
+
+        <h2 class="subtitle">Zdrojový kód lekce</h2>
+
+        <div id="lesson-code">
+          <div class="icon-link">
+            <div class="spinner"></div>
+            <p>Načítám...</p>
+          </div>
+        </div>
+      <?php endif; ?>
+
+
     <?php endif; ?>
   </main>
 
   <footer>
     <small>&copy; <?= date('Y') ?> Mia Runštuková</small>
   </footer>
+
+  <?php if (isset($lessonCode)): ?>
+    <script type="module">
+      import {
+        codeToHtml
+      } from 'https://esm.sh/shiki@3.0.0'
+
+      const lessonCodeElement = document.getElementById('lesson-code')
+      lessonCodeElement.innerHTML = await codeToHtml(<?= json_encode($lessonCode) ?>, {
+        lang: 'php',
+        theme: 'solarized-light'
+      })
+    </script>
+  <?php endif; ?>
 </body>
 
 </html>
