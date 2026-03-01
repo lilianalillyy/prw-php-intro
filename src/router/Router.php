@@ -50,20 +50,36 @@ class Router {
             throw new InvalidArgumentException("Invalid route '{$route}' provided to Router.");
         }
 
+        $isDefault = $route === $this->defaultRouteName;
+
         $currentUrl = $_SERVER['REQUEST_URI'] ?? '/';
         $urlParts = parse_url($currentUrl);
         $currentQueryParams = [];
-        
+
         if (isset($urlParts['query'])) {
             parse_str($urlParts['query'], $currentQueryParams);
         }
 
         unset($currentQueryParams[$this->routeParam]);
 
+        $mergedParams = array_merge($currentQueryParams, $queryParams);
+
+        // When URL rewriting is available, use clean paths (e.g. /lesson1 instead of ?page=lesson1).
+        if ($this->isRewriteAvailable()) {
+            $url = $isDefault ? '/' : '/' . rawurlencode($route);
+            $query = http_build_query($mergedParams);
+
+            if ($query) {
+                $url .= '?' . $query;
+            }
+
+            return $url;
+        }
+
         // Do not include the routing parameter in the URL if it's the default route.
-        $pageParams = $route === $this->defaultRouteName ? [] : [$this->routeParam => $route];
+        $pageParams = $isDefault ? [] : [$this->routeParam => $route];
         
-        $query = http_build_query(array_merge($currentQueryParams, $queryParams, $pageParams));
+        $query = http_build_query(array_merge($mergedParams, $pageParams));
         $url = $urlParts['path'] ?? '/';
         
         if ($query) {
@@ -75,6 +91,40 @@ class Router {
         }
         
         return $url;
+    }
+
+    /**
+     * Detect if URL rewriting is available (e.g. Apache mod_rewrite).
+     * The result is cached for the lifetime of the request.
+     */
+    private function isRewriteAvailable(): bool {
+        static $available = null;
+
+        if ($available !== null) {
+            return $available;
+        }
+
+        // Apache with mod_rewrite
+        if (function_exists('apache_get_modules')) {
+            $available = in_array('mod_rewrite', apache_get_modules(), true);
+            return $available;
+        }
+
+        // When running behind Apache via CGI/FPM, mod_rewrite sets this header.
+        if (!empty($_SERVER['HTTP_MOD_REWRITE']) || !empty($_SERVER['REDIRECT_HTTP_MOD_REWRITE'])) {
+            $available = true;
+            return $available;
+        }
+
+        // Nginx or other servers that handle rewriting at config level typically
+        // don't expose a query param — if REDIRECT_STATUS is set, a rewrite happened.
+        if (isset($_SERVER['REDIRECT_STATUS']) && $_SERVER['REDIRECT_STATUS'] === '200') {
+            $available = true;
+            return $available;
+        }
+
+        $available = false;
+        return $available;
     }
 
     public function getRoutes(): array {
