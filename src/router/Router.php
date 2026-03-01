@@ -56,6 +56,8 @@ class Router {
             parse_str($urlParts['query'], $currentQueryParams);
         }
 
+        unset($currentQueryParams[$this->routeParam]);
+
         // Do not include the routing parameter in the URL if it's the default route.
         $pageParams = $route === $this->defaultRouteName ? [] : [$this->routeParam => $route];
         
