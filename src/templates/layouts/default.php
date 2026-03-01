@@ -1,6 +1,6 @@
 <?php declare(strict_types=1); 
 
-if ($isError) {
+if (isset($isError) && $isError === true) {
   $title = (string) $statusCode;
 }
 
