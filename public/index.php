@@ -2,13 +2,20 @@
 
 require_once __DIR__ . '/../src/index.php';
 
+const DATA_DIR = __DIR__ . '/../data';
+
 const GLOBAL_DATA = [
   'globalTitle' => 'Základy PHP',
   'debug' => true,
+  'dataDir' => DATA_DIR,
 ];
 
 const DEFAULT_LAYOUT = "default";
 const LESSON_LAYOUT = "lesson";
+
+if (!is_dir(DATA_DIR)) {
+  mkdir(DATA_DIR, 0755, true);
+}
 
 $templateRenderer = new TemplateRenderer(__DIR__ . '/../templates');
 $router = new Router(
