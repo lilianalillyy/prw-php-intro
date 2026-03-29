@@ -82,6 +82,38 @@ $router = new Router(
         'referenceFile' => '/lessons/lesson7_arrays.pdf',
       ]
     ),
+    new TemplateRoute(
+      name: "lesson8",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 8 - Formuláře',
+        'referenceFile' => '/lessons/lesson8_forms.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson9",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 9 - Superglobální proměnné',
+        'referenceFile' => '/lessons/lesson9_superglobals.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson10",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 10 - Session a Cookies',
+        'referenceFile' => '/lessons/lesson10_sessions_and_cookies.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson11",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 11 - Práce se soubory',
+        'referenceFile' => '/lessons/lesson11_files.pdf',
+      ]
+    ),
   ],
   routeHandlers: [
     new TemplateRouteHandler(
