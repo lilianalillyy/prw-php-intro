@@ -3,4 +3,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([^/]+)/?$ /?page=$1 [L,QSA]
+RewriteRule ^([^/]+)/?$ /?route=$1 [L,QSA]

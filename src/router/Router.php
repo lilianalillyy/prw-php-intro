@@ -8,7 +8,7 @@ class Router
   public function __construct(
     array $routes = [],
     array $routeHandlers = [],
-    private readonly string $routeParam = 'page',
+    private readonly string $routeParam = 'route',
     private readonly string $defaultRouteName = 'home',
     private readonly ?string $errorHandler = null,
   ) {
@@ -18,14 +18,14 @@ class Router
 
   public function handleRequest(): void
   {
-    $page = $this->getCurrentRouteName();
+    $routeName = $this->getCurrentRouteName();
 
-    // If the page parameter is not set, use the default route.
-    if (!$page) {
-      $page = $this->defaultRouteName;
+    // If the route parameter is not set, use the default route.
+    if (!$routeName) {
+      $routeName = $this->defaultRouteName;
     }
 
-    $route = $this->getRoute($page);
+    $route = $this->getRoute($routeName);
 
     if (!$route) {
       $this->error(404, "Page not found.");
@@ -66,7 +66,7 @@ class Router
 
     $mergedParams = array_merge($currentQueryParams, $queryParams);
 
-    // When URL rewriting is available, use clean paths (e.g. /lesson1 instead of ?page=lesson1).
+    // When URL rewriting is available, use clean paths (e.g. /lesson1 instead of ?route=lesson1).
     if ($this->isRewriteAvailable()) {
       $url = $isDefault ? '/' : '/' . rawurlencode($route);
       $query = http_build_query($mergedParams);
@@ -79,9 +79,9 @@ class Router
     }
 
     // Do not include the routing parameter in the URL if it's the default route.
-    $pageParams = $isDefault ? [] : [$this->routeParam => $route];
+    $routeParams = $isDefault ? [] : [$this->routeParam => $route];
 
-    $query = http_build_query(array_merge($mergedParams, $pageParams));
+    $query = http_build_query(array_merge($mergedParams, $routeParams));
     $url = $urlParts['path'] ?? '/';
 
     if ($query) {
