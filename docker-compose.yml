@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "8080:80"
+      - "${PORT:-8080}:80"
     volumes:
       - ./public:/var/www/html/public
       - ./src:/var/www/html/src
