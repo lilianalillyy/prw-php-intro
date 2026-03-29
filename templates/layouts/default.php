@@ -23,7 +23,7 @@ if (isset($isError) && $isError === true) {
   </main>
 
   <footer>
-    <small>&copy; <?= date('Y') ?> Mia Runštuková</small>
+    <small>&copy; <?= date('Y') ?> Mia Runštuková &bull; <a href="https://github.com/lilianalillyy/prw-php-intro" target="_blank" rel="noreferrer noopener nofollow">GitHub</a></small>
   </footer>
 </body>
 </html>
