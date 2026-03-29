@@ -114,6 +114,7 @@ hr {
   padding: calc(var(--spacing) * 4);
   border-radius: 12px;
   border: 2px dotted var(--color-secondary);
+  overflow: scroll;
 }
 
 .spinner {
