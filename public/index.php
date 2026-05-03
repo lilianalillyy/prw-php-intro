@@ -114,6 +114,70 @@ $router = new Router(
         'referenceFile' => '/lessons/lesson11_files.pdf',
       ]
     ),
+    new TemplateRoute(
+      name: "lesson12",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 12 - Práce s databází (MySQL)',
+        'referenceFile' => '/lessons/lesson12_databases_mysql.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson13",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 13 - PDO a prepared statements',
+        'referenceFile' => '/lessons/lesson13_pdo_prepared_statements.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson14",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 14 - CRUD aplikace',
+        'referenceFile' => '/lessons/lesson14_crud_application.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson15",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 15 - Validace formulářů',
+        'referenceFile' => '/lessons/lesson15_form_validation.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson16",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 16 - Include, Require a Templating',
+        'referenceFile' => '/lessons/lesson16_include_require_templating.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson17",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 17 - Základy OOP v PHP',
+        'referenceFile' => '/lessons/lesson17_oop.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson18",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 18 - Bezpečnost v PHP',
+        'referenceFile' => '/lessons/lesson18_security.pdf',
+      ]
+    ),
+    new TemplateRoute(
+      name: "lesson19",
+      layout: LESSON_LAYOUT,
+      data: [
+        'title' => 'Lekce 19 - JSON, API a práce s daty',
+        'referenceFile' => '/lessons/lesson19_json_api.pdf',
+      ]
+    ),
   ],
   routeHandlers: [
     new TemplateRouteHandler(
