@@ -3,8 +3,34 @@ services:
     build: .
     ports:
       - "${PORT:-8080}:80"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: prw_zaklady
+      DB_USERNAME: prw
+      DB_PASSWORD: prw
+    depends_on:
+      mysql:
+        condition: service_healthy
     volumes:
       - ./public:/var/www/html/public
       - ./src:/var/www/html/src
       - ./data:/var/www/html/data
       - ./templates:/var/www/html/templates
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: prw_zaklady
+      MYSQL_USER: prw
+      MYSQL_PASSWORD: prw
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uprw -pprw --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:
